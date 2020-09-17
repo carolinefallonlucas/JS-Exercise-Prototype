@@ -79,7 +79,7 @@ console.log(personTwo.stomach);
 
 personTwo.poop();
 
-console.log(personTwo.stomach);
+console.log(personTwo.stomach)
 
 
 /*
@@ -97,7 +97,7 @@ console.log(personTwo.stomach);
 */
 
 function Car(model, milesPerGallon) {
-  this.model = mode
+  this.model = model
   this.milesPerGallon = milesPerGallon
   this.tank = 0
   this.odometer = 0
@@ -108,44 +108,61 @@ Car.prototype.fill = function (gallons) {
 }
 
 Car.prototype.drive = function (distance) {
-  if (this.tank = this.milesPerGallon) < distance {
-    ; let leftover= distance - (this.milesPerGallon)
-  this.odometer = + distance - leftover
-  this.tank = 0
-  return
-}
-}
-}
+  if (this.tank * this.milesPerGallon < distance) {
+    let leftover = distance - (this.tank * this.milesPerGallon)
+    this.odometer = + distance - leftover
+    this.tank = 0
+    return `I ran out of fuel at ${this.odometer} miles!}`
+  } else {
+    this.odometer += distance
+    this.tank -= distance / this.milesPerGallon
+  }
+  // }
 
-/*
-  TASK 3
-    - Write a Baby constructor subclassing Person.
-    - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
-    - Besides the methods on Person.prototype, babies have the ability to `.play()`:
-        + Should return a string "Playing with x", x being the favorite toy.
-*/
-function Baby() {
+  /*
+    TASK 3
+      - Write a Baby constructor subclassing Person.
+      - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
+      - Besides the methods on Person.prototype, babies have the ability to `.play()`:
+          + Should return a string "Playing with x", x being the favorite toy.
+  */
+  function Baby(name, age, favoriteToy) {
+    Person.call(this, name, age)
+    this.FavoriteToy = favoriteToy
+  }
 
-}
-
-/* 
-  TASK 4
-
-  In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
-*/
+  Baby.prototype = Object.create(Person.prototype)
+  Baby.prototype.play = function () {
+    return `Playing with ${this.FavoriteToy}`
+  }
 
 
-///////// END OF CHALLENGE /////////
-///////// END OF CHALLENGE /////////
-///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Baby) { module.exports.Baby = Baby }
+  /* 
+    TASK 4
+   
+    In your own words explain the four principles for the "this" keyword below:
+    1. Global Binding 
+      - this refers to window or console object and it is the default when context is omitted 
+  
+    2. Implicit Binding 
+    -  this only applies to the objects with methods; whatever is left of the dot 
+    
+    3. New Binding
+      - this applys to the new object being constructed; refers to object being created and returned 
+  
+    4. Explicit Binding 
+  
+  */
+
+
+  ///////// END OF CHALLENGE /////////
+  ///////// END OF CHALLENGE /////////
+  ///////// END OF CHALLENGE /////////
+  if (typeof exports !== 'undefined') {
+    module.exports = module.exports || {}
+    if (Airplane) { module.exports.Airplane = Airplane }
+    if (Person) { module.exports.Person = Person }
+    if (Car) { module.exports.Car = Car }
+    if (Baby) { module.exports.Baby = Baby }
+  }
 }
