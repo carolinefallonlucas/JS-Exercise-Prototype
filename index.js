@@ -63,6 +63,7 @@ Person.prototype.toString = function () {
   return `${this.name}, ${this.age}`;
 }
 
+
 const personOne = new Person('William', 21);
 const personTwo = new Person('Grady', 33);
 const personThree = new Person('Cheree', 41);
@@ -71,15 +72,16 @@ console.log(personOne.toString());
 console.log(personTwo.toString());
 console.log(personThree.toString());
 
-personTwo.eat('🍍');
-personTwo.eat('🐌');
-personTwo.eat('🥪');
+personTwo.eat('pinepple');
+personTwo.eat('snail');
+personTwo.eat('bread');
 
 console.log(personTwo.stomach);
 
 personTwo.poop();
 
-console.log(personTwo.stomach)
+
+console.log(personTwo.stomach);
 
 
 /*
@@ -117,7 +119,7 @@ Car.prototype.drive = function (distance) {
     this.odometer += distance
     this.tank -= distance / this.milesPerGallon
   }
-  // }
+  // 
 
   /*
     TASK 3
