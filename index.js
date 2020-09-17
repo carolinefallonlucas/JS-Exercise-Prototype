@@ -39,15 +39,54 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
+
+Person.prototype.eat = function (edible) {
+  if (this.stomach.length < 10) {
+    this.stomach.push(edible);
+  }
+}
+
+// give the person the ability to poop
+
+Person.prototype.poop = function () {
+  this.stomach = [];
+}
+
+// toString
+
+Person.prototype.toString = function () {
+  return `${this.name}, ${this.age}`;
+}
+
+const personOne = new Person('William', 21);
+const personTwo = new Person('Grady', 33);
+const personThree = new Person('Cheree', 41);
+
+console.log(personOne.toString());
+console.log(personTwo.toString());
+console.log(personThree.toString());
+
+personTwo.eat('🍍');
+personTwo.eat('🐌');
+personTwo.eat('🥪');
+
+console.log(personTwo.stomach);
+
+personTwo.poop();
+
+console.log(personTwo.stomach)
+
 
 /*
   TASK 2
     - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
     - All instances built with Car:
-        + should initialize with an `tank` at 0
+        + should initialize with a `tank` at 0
         + should initialize with an `odometer` at 0
     - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
     - STRETCH: Give cars ability to `.drive(distance)`. The distance driven:
@@ -57,39 +96,73 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.model = model
+  this.milesPerGallon = milesPerGallon
+  this.tank = 0
+  this.odometer = 0
 }
 
-/*
-  TASK 3
-    - Write a Baby constructor subclassing Person.
-    - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
-    - Besides the methods on Person.prototype, babies have the ability to `.play()`:
-        + Should return a string "Playing with x", x being the favorite toy.
-*/
-function Baby() {
-
+Car.prototype.fill = function (gallons) {
+  this.tank += gallons
 }
 
-/* 
-  TASK 4
+Car.prototype.drive = function (distance) {
+  if (this.tank * this.milesPerGallon < distance) {
+    let leftover = distance - (this.tank * this.milesPerGallon)
+    this.odometer = + distance - leftover
+    this.tank = 0
+    return `I ran out of fuel at ${this.odometer} miles!}`
+  } else {
+    this.odometer += distance
+    this.tank -= distance / this.milesPerGallon
+  }
+  // }
 
-  In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
-*/
+  /*
+    TASK 3
+      - Write a Baby constructor subclassing Person.
+      - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
+      - Besides the methods on Person.prototype, babies have the ability to `.play()`:
+          + Should return a string "Playing with x", x being the favorite toy.
+  */
+  function Baby(name, age, favoriteToy) {
+    Person.call(this, name, age)
+    this.FavoriteToy = favoriteToy
+  }
+
+  Baby.prototype = Object.create(Person.prototype)
+  Baby.prototype.play = function () {
+    return `Playing with ${this.FavoriteToy}`
+  }
 
 
-///////// END OF CHALLENGE /////////
-///////// END OF CHALLENGE /////////
-///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Baby) { module.exports.Baby = Baby }
+  /* 
+    TASK 4
+   
+    In your own words explain the four principles for the "this" keyword below:
+    1. Global Binding 
+      - this refers to window or console object and it is the default when context is omitted 
+  
+    2. Implicit Binding 
+    -  this only applies to the objects with methods; whatever is left of the dot 
+    
+    3. New Binding
+      - this applys to the new object being constructed; refers to object being created and returned 
+  
+    4. Explicit Binding 
+  
+  */
+
+
+  ///////// END OF CHALLENGE /////////
+  ///////// END OF CHALLENGE /////////
+  ///////// END OF CHALLENGE /////////
+  if (typeof exports !== 'undefined') {
+    module.exports = module.exports || {}
+    if (Airplane) { module.exports.Airplane = Airplane }
+    if (Person) { module.exports.Person = Person }
+    if (Car) { module.exports.Car = Car }
+    if (Baby) { module.exports.Baby = Baby }
+  }
 }
