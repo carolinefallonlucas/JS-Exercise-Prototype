@@ -97,9 +97,24 @@ console.log(personTwo.stomach);
 */
 
 function Car(model, milesPerGallon) {
-  this.model = model;
-  this.milesPerGallon = milesPerGallon;
+  this.model = mode
+  this.milesPerGallon = milesPerGallon
+  this.tank = 0
+  this.odometer = 0
+}
 
+Car.prototype.fill = function (gallons) {
+  this.tank += gallons
+}
+
+Car.prototype.drive = function (distance) {
+  if (this.tank = this.milesPerGallon) < distance {
+    ; let leftover= distance - (this.milesPerGallon)
+  this.odometer = + distance - leftover
+  this.tank = 0
+  return
+}
+}
 }
 
 /*
